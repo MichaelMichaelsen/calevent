@@ -1,0 +1,613 @@
+<!--
+   index.html
+
+   Copyright 2018 Michael Michaelsen <mmi@mmi-Aspire-M1350>
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+   MA 02110-1301, USA.
+
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>Calevent (1.8)</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+		crossorigin="anonymous"></script>
+
+
+	<link rel="stylesheet" type="text/css"
+		href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+	<link rel="stylesheet" type="text/css" href="css/c3.css">
+
+
+	<!-- Include Date Range Picker -->
+	<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript"
+		src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.js"></script>
+
+
+	<!-- Include Date Picker -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/da.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.da.min.js"></script>
+
+	<!-- Include Datatable -->
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="//cdn.datatables.net/select/1.2.1/js/dataTables.select.min.js"></script>
+	<!-- D3 and C3 stuff -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+	<script src="js/c3.js"></script>
+
+	<style type="text/css">
+		#custom-bootstrap-menu.navbar-default .navbar-brand {
+			color: rgba(245, 235, 235, 1);
+		}
+
+		#custom-bootstrap-menu.navbar-default {
+			font-size: 14px;
+			background-color: rgba(87, 45, 224, 1);
+			border-bottom-width: 1px;
+		}
+
+		#custom-bootstrap-menu.navbar-default .navbar-nav>li>a {
+			color: rgba(245, 235, 235, 1);
+			background-color: rgba(248, 248, 248, 0);
+		}
+
+		#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:hover,
+		#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:focus {
+			color: rgba(51, 51, 51, 1);
+			background-color: rgba(248, 248, 248, 0);
+			background: -webkit-linear-gradient(top, rgba(248, 248, 248, 0) 0%, rgba(248, 248, 248, 0) 100%);
+			background: linear-gradient(to bottom, rgba(248, 248, 248, 0) 0%, rgba(248, 248, 248, 0) 100%);
+		}
+
+		#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
+		#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:hover,
+		#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:focus {
+			color: rgba(85, 85, 85, 1);
+			background-color: rgba(231, 231, 231, 1);
+		}
+
+		#custom-bootstrap-menu.navbar-default .navbar-toggle {
+			border-color: #ddd;
+		}
+
+		#custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
+		#custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
+			background-color: #ddd;
+		}
+
+		#custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
+			background-color: #888;
+		}
+
+		#custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
+		#custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
+			background-color: #572de0;
+		}
+
+		#eventtable #hourtable {
+			font-size: 0.8em;
+			line-height: 0.8em;
+		}
+	</style>
+	<script>
+		function pad(number, length) {
+			var str = '' + number;
+			while (str.length < length) {
+				str = '0' + str;
+			}
+			return str;
+		}
+		var logins = {
+			"test03":
+			{
+				"host": "test03-services.datafordeler.dk",
+				"register": {
+					"BBR": { "username": "ZARWYOJNOO", "password": "P1beS0vs.." },
+					"CVR": { "username": "ATPCBEXSNP", "password": "P1beS0vs.." },
+					"DAGI": { "username": "HGNBFKJEZE", "password": "P1beS0vs.." },
+					"DAR": { "username": "GICPTNKBFW", "password": "P1beS0vs.." },
+					"EBR": { "username": "KAWSVXFIJY", "password": "P1beS0vs.." },
+					"GeoDK": { "username": "KMYFCRKNBK", "password": "P1beS0vs.." },
+					"MU": { "username": "FTXZUJOQVX", "password": "P1beS0vs.." }
+				}
+			},
+			"test06":
+			{
+				"host": "test06-services.datafordeler.dk",
+				"register": {
+					"BBR": { "username": "TENBZDPEQW", "password": "NuGa10s.." },
+					"CVR": { "username": "NMDQQPBURD", "password": "NuGa10s.." },
+					"DAGI": { "username": "GFTJXMXVNW", "password": "NuGa10s.." },
+					"DAR": { "username": "QZWJQBHALL", "password": "NuGa10s.." },
+					"EBR": { "username": "RRBAEUJDOE", "password": "NuGa10s.." },
+					"GeoDK": { "username": "IUQMHYGIFZ", "password": "NuGa10s.." },
+					"MU": { "username": "NWSGFUGZDN", "password": "NuGa10s.." },
+					"VUR": { "username": "XDVRBSBFQW", "password": "NuGa10s.." }
+				}
+			},
+			"prod01":
+			{
+				"host": "services.datafordeler.dk",
+				"register": {
+					"CVR": { "username": "OLLGJUZZNZ", "password": "Nuga10s.." },
+					"DAGI": { "username": "ONCVAXSNFU", "password": "Nuga10s.." },
+					"DAR": { "username": "JREZZRLWHY", "password": "Nuga10s.." },
+					"EBR": { "username": "JNBIFOKCBI", "password": "Nuga10s.." },
+					"GeoDK": { "username": "WXRZCAPLBQ", "password": "Nuga10s.." },
+					"MU": { "username": "JDUNVQSAUB", "password": "Nuga10s.." },
+					"DS": { "username": "UIMNXRIGWG", "password": "Nuga10s.." }
+				}
+			}
+		};
+		var colindex = ["BBR", "CVR", "DAR", "DAGI", "DS", "EBR", "EJF", "GeoDK", "MU", "VUR"];
+		var environments = ["test03", "test06", "prod01"];
+		var username = "&username=GTCXKEQSHC";
+		var passwd = "&passwd=Ford2010";
+		var environment = "test03";
+		var thedate = moment().format('YYYY-MM-DD');
+		var onedayafter = moment().add(1, 'day').format('YYYY-MM-DD');
+		var numberofrequests
+			= 0;
+		var numberofresponses
+			= 0;
+		function seturl(environment, reg, fromdate, todate) {
+			host = logins[environment].host;
+			base = "https://" + host + "/system/EventMessages/1.0.0/custom"
+			from = "?datefrom=" + fromdate;
+			to = "&dateto=" + todate;
+			format = "&format=json";
+			uname = "&username=" + logins[environment].register[reg].username;
+			pwd = "&password=" + logins[environment].register[reg].password;
+			url = base + from + to + format + uname + pwd;
+			console.log('seturl ' + url)
+			return url
+		}
+		var spinner = null;
+		var spinner_div = 0;
+
+		function startspinner() {
+
+			var opts = {
+				lines: 15, // The number of lines to draw
+				length: 23, // The length of each line
+				width: 17, // The line thickness
+				radius: 57, // The radius of the inner circle
+				scale: 0.35, // Scales overall size of the spinner
+				corners: 1, // Corner roundness (0..1)
+				color: '#ffffff', // CSS color or array of colors
+				fadeColor: 'transparent', // CSS color or array of colors
+				opacity: 0.3, // Opacity of the lines
+				rotate: 0, // The rotation offset
+				direction: 1, // 1: clockwise, -1: counterclockwise
+				speed: 1, // Rounds per second
+				trail: 60, // Afterglow percentage
+				fps: 20, // Frames per second when using setTimeout() as a fallback in IE 9
+				zIndex: 2e9, // The z-index (defaults to 2000000000)
+				className: 'spinner', // The CSS class to assign to the spinner
+				top: '50%', // Top position relative to parent
+				left: '50%', // Left position relative to parent
+				shadow: 'none', // Box-shadow for the lines
+				position: 'absolute' // Element positioning
+			};
+
+			spinner_div = $("#spinner").get(0);
+			if (spinner == null) {
+				spinner = new Spinner(opts).spin(spinner_div);
+			} else {
+				spinner.spin(spinner_div);
+			}
+		}
+		function stopspinner() {
+			spinner.stop(spinner_div);
+		}
+		$(document).ready(function () {
+			//
+			// Set default date to today
+			//
+			var today = moment().format("YYYY-MM-DD");
+			console.log('today is ' + today);
+			$("#dp").val(today);
+			//
+			// Create the table with the register event totals
+			//
+			eventtable =
+				$("#eventtable")
+					.DataTable({
+						searching: false,
+						ordering: true,
+						paging: false,
+						info: false,
+						language: {
+							"thousands": "."
+						},
+						select: {
+							style: 'os',
+							items: 'cell'
+						},
+						columns: [
+							{ title: "type" },
+							{ title: "Handling" },
+							{ title: "Antal" }
+						],
+						"columnDefs": [
+							{ className: "dt-right", "targets": [0, 1, 2] }
+						]
+					});
+
+			hourtable =
+				$("#hourtable")
+					.DataTable({
+						searching: false,
+						ordering: false,
+						paging: false,
+						info: false,
+						language: {
+							"thousands": "."
+						},
+						select: {
+							style: 'os',
+							items: 'cell'
+						},
+						columns: [
+							{ title: "00" },
+							{ title: "01" },
+							{ title: "02" },
+							{ title: "03" },
+							{ title: "04" },
+							{ title: "05" },
+							{ title: "06" },
+							{ title: "07" },
+							{ title: "08" },
+							{ title: "09" },
+							{ title: "10" },
+							{ title: "11" },
+							{ title: "12" },
+							{ title: "13" },
+							{ title: "14" },
+							{ title: "15" },
+							{ title: "16" },
+							{ title: "17" },
+							{ title: "18" },
+							{ title: "19" },
+							{ title: "20" },
+							{ title: "21" },
+							{ title: "22" },
+							{ title: "23" }
+						]
+					})
+			//
+			// Set up the overview table
+			//
+			regtable =
+				$("#regtable")
+					.DataTable({
+						searching: false,
+						ordering: false,
+						paging: false,
+						info: false,
+						language: {
+							"thousands": "."
+						},
+						select: {
+							style: 'os',
+							items: 'cell'
+						},
+						columns: [
+							{ title: "Environment" },
+							{ title: "BBR" },
+							{ title: "CVR" },
+							{ title: "DAR" },
+							{ title: "DAGI" },
+							{ title: "DS" },
+							{ title: "EBR" },
+							{ title: "EJF" },
+							{ title: "GeoDK" },
+							{ title: "MU" },
+							{ title: "VUR" }
+						],
+						"columnDefs": [
+							{ className: "dt-right", "targets": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+						]
+					})
+					//
+					// Act when the user select one cell (environment,register)
+					//
+					.on('select', function (e, dt, type, indexes) {
+						// console.log( 'Items to be selected are now: ', type );
+						// console.log( 'dt: ', dt);
+						// console.log( dt[0][0].row + ', ' +  dt[0][0].column);
+						// console.log( indexes[0].row  + ', ' + indexes[0].column );
+						row = indexes[0].row;
+						column = indexes[0].column;
+
+						if (column > 0) {
+							// console.log( environments[row] + ' ' + colindex[column-1]);
+							// console.log(regtable.cell({row:row,column:column}).data())
+							environment = environments[row];
+							register = colindex[column - 1];
+							// $("#environment")	.text(environment);
+							// $("#registernavn").text(register);
+							today = moment(thedate).format('YYYY-MM-DD');
+							thedate = $('input[name="datepicker"]').datepicker('getFormattedDate');
+							tomorrow = moment(thedate).add(1, 'day').format('YYYY-MM-DD');
+							url = seturl(environment, register, today, tomorrow);
+							//
+							// Remove old data in the eventtable
+							//
+							eventtable
+								.clear()
+								.draw();
+							hourtable
+								.clear()
+								.draw();
+							// console.log(url);
+							startspinner();
+							$.get(url)
+								.done(function (events) {
+									eventlist = new Array();
+
+									// $("#event").text(JSON.stringify(events, undefined, 2));
+									$.each(events, function (index, event) {
+										//console.log(event)
+										objekthandling = event.Message.Grunddatabesked.Hændelsesbesked.Beskedkuvert.Filtreringsdata.Objektregistrering[0].objekthandling;
+										objekttype = event.Message.Grunddatabesked.Hændelsesbesked.Beskedkuvert.Filtreringsdata.Objektregistrering[0].objekttype;
+										id = event.Id;
+										timestamp = event.Timestamp;
+										// console.log(objekthandling);
+										// console.log(objekttype);
+										oh = { id: id, timestamp: timestamp, type: objekttype, handling: objekthandling };
+										eventlist.push(oh);
+										//console.log(event.Message.Hændelsesbesked.Beskedkuvert.Filtreringsdata.Objektregistrering.objekthandling);
+									})
+									// $.each(eventlist, function(index,value) {
+									// 	console.log(index + ' ' + value.type + ' ' + value.handling)
+									// });
+									//
+									// Aggregation by type and handling using d3
+									//
+									var eventbytypeandhandling = d3.nest()
+										.key(function (d) { return d.type; })
+										.key(function (d) { return d.handling; })
+										.rollup(function (v) { return v.length; })
+										.object(eventlist);
+									stopspinner();
+									// console.log(JSON.stringify(eventbytypeandhandling))
+									for (obtype in eventbytypeandhandling) {
+										console.log(obtype);
+										for (obhand in eventbytypeandhandling[obtype]) {
+											console.log("\t" + obhand + ' ' + eventbytypeandhandling[obtype][obhand])
+											eventtable.row.add([
+												obtype,
+												obhand,
+												eventbytypeandhandling[obtype][obhand]
+											]).draw()
+										}
+									}
+									eventtable.column('2:visible').order('desc').draw();
+									//
+									// Aggregate by hour
+									// "Timestamp": "2018-05-03T06:45:14.2374+02:00"
+									var eventbyhour = d3.nest()
+										.key(function (d) { return d.timestamp.split('T')[1].split(':')[0] })
+										.rollup(function (v) { return v.length; })
+										.object(eventlist);
+									console.log(eventbyhour)
+									var oneday = new Array();
+									for (let i = 0; i < 24; i++) {
+										oneday.push('.')
+									}
+									hourtable.row.add(oneday).draw();
+									for (var key in eventbyhour) {
+										tindex = { row: 0, column: +key }
+										console.log(tindex + ' ' + eventbyhour[key])
+										hourtable.cell(tindex).data(eventbyhour[key]);
+									}
+
+									// Make a chart based on hour values.
+									var hourlabel = new Array();
+									var hourvalue = new Array();
+									for (let i = 0; i < 24; i++) {
+										hourlabel.push(pad(i, 2));
+										hourvalue.push(0)
+									}
+
+									for (var key in eventbyhour) {
+										index = +key
+										hourvalue[index] = eventbyhour[key];
+									}
+									chartindex = ['x'].concat(hourlabel);
+									chartvalue = [register].concat(hourvalue);
+									console.log(chartindex);
+									console.log(chartvalue);
+									var chart = c3.generate({
+										bindto: '#chart',
+										data: {
+											x: 'x',
+											type: 'bar',
+											columns: [
+												chartindex,
+												chartvalue,
+											]
+										}
+									})
+								})
+						}
+					});
+
+			$.each(environments, function (environment, value) {
+				regtable.row.add([value, "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]).draw();
+			});
+			regtable.rows().eq(0).each(function (idx) {
+				// console.log('idx '+idx);
+				regtable.row(idx).child.show();
+				// console.log(regtable.row(idx).data())
+			});
+			//
+			// Control the data selection
+			//
+			$('input[name="datepicker"]').datepicker({
+				format: "yyyy-mm-dd",
+				language: "da",
+				endDate: thedate,
+				setDate: new Date(),
+				todayHighlight: true,
+				calendarWeeks: true,
+				autoclose: true,
+				todayBtn: true,
+				todayHighlight: true
+			})
+				.on('changeDate', function (ev) {
+					updateTable()
+				});
+			function updateTable() {
+				thedate = $('input[name="datepicker"]').datepicker('getFormattedDate');
+				today = moment(thedate).format('YYYY-MM-DD');
+				tomorrow = moment(thedate).add(1, 'day').format('YYYY-MM-DD');
+				// console.log(thedate);
+				envindex = 0;
+				numberofrequests = 0;
+				numberofresponses
+					= 0;
+				startspinner();
+				// Loop through the environments
+				$.each(environments, function (envindex, environment) {
+					// console.log(environment);
+					//
+					// Add a column for each environment
+					//
+					$.each(colindex, function (indexreg, valuereg) {
+						//
+						// Check if the register is enabled in that environment
+						//
+						registernavn = valuereg;
+						if (logins[environment].register[registernavn]) {
+							url = seturl(environment, registernavn, today, tomorrow)
+							// console.log("\t\t" + '(' + envindex + ',' + indexreg + ') ' + registernavn + ' ' + url);
+							numberofrequests++;
+							$("#requests").text(numberofrequests);
+							$.get(url)
+								.done(function (eventdata) {
+									numberofresponses++
+									if (numberofrequests == numberofresponses) stopspinner();
+									// $("#responses").text(numberofresponses);
+									console.log({ row: envindex, column: indexreg + 1 }, eventdata.length)
+									cell = regtable.cell({ row: envindex, column: indexreg + 1 }).node();
+									if (eventdata.length > 0) {
+										$(cell).addClass('warning');
+										regtable.cell({ row: envindex, column: indexreg + 1 }).data("...").draw();
+										//console.log(envindex,indexreg,eventdata.length)
+										// console.log(JSON.stringify(eventdata))
+										regtable.cell({ row: envindex, column: indexreg + 1 }).data(eventdata.length).draw();
+									} else {
+										regtable.cell({ row: envindex, column: indexreg + 1 }).data("-").draw();
+									}
+								})
+								.fail(function () {
+									regtable.cell({ row: envindex, column: indexreg + 1 }).data("-").draw();
+									numberofresponses++
+									if (numberofrequests == numberofresponses) stopspinner();
+									// $("#responses").text(numberofresponses);
+								})
+						}
+					})
+				})
+
+			};
+			// $('input[name="datepicker"]').datepicker('update', moment("YYYY-MM-DD"));
+			$("#refresh").on('click', function (ev) {
+				console.log("Refreshing")
+				updateTable()
+			})
+		});
+
+	</script>
+</head>
+
+<body>
+
+	<div class="container-fluid">
+		<div id="custom-bootstrap-menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header"><a class="navbar-brand" href="#" id="title">Hændelser (version 1.8) Oversigt over
+						dannede hændelser for en dag.</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<form class="form-inline">
+				<label for="dp" class="form-control-label">Dato </label>
+				<div class="form-group">
+					<input type="text" id="dp" name="datepicker" class="form-control" />
+				</div>
+				<div id="spinner"></div>
+			</form>
+			<button type="button" class="btn btn-success" id="refresh">Refresh</button>
+
+		</div>
+		<div class="row">
+			<div class='col col-sm-6'>
+				<table id="regtable" class="table table-striped table-bordered" width="100%">
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class='col col-sm-6'>
+				<table id="hourtable" class="table table-bordered compact">
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class='col col-sm-6'>
+				<div id="chart"></div>
+
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class='col col-sm-6'>
+				<table id="eventtable" class="table table-striped table-bordered" width="100%">
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
